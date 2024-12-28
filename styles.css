@@ -233,6 +233,8 @@ p {
     .container {
         padding: 20px;
         width: 95%;
+        margin: 10px;
+        transform: none !important;
     }
 
     h1 {
@@ -241,6 +243,56 @@ p {
 
     p {
         font-size: 1em;
+    }
+
+    /* Ensure animations work on mobile */
+    .prayer, .highlight, .signature, .image-container {
+        will-change: transform, opacity;
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    /* Optimize animations for mobile */
+    @media (prefers-reduced-motion: no-preference) {
+        .prayer::before {
+            animation: lightSweep 8s infinite;
+        }
+
+        .image-frame {
+            animation: frameBorder 4s infinite;
+        }
+
+        .container::before,
+        .container::after {
+            animation: floatingHeart 4s ease-in-out infinite;
+        }
+    }
+
+    /* Improve touch interactions */
+    .prayer:hover,
+    .image-container:hover .prayer-image {
+        transform: scale(1.01);
+    }
+
+    /* Better mobile performance */
+    .prayer::before,
+    .container::before,
+    .container::after {
+        pointer-events: none;
+    }
+
+    /* Adjust gradients for better mobile rendering */
+    body {
+        background: linear-gradient(45deg, #f5f7fa 0%, #c3cfe2 100%);
+        background-attachment: fixed;
+    }
+
+    /* Optimize shadows for mobile */
+    .prayer-image {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 }
 
